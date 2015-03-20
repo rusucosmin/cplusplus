@@ -1,0 +1,44 @@
+#include <fstream>
+#include <iostream>
+#include <map>
+
+using namespace std;
+
+ifstream fin("bilete.in");
+ofstream fout("bilete.out");
+
+int n, k;
+int st[10];
+int nr1, nr2;
+int ans;
+map<int, bool> used;
+
+inline void back(int p) {
+	if(p == k + 1) {
+		if(nr1 < nr2)
+			fout << nr1 << '\n', ++ ans;
+		else if (nr1 == nr2 && !used[nr1]) {
+			fout << nr1 << '\n';
+			used[nr1] = 1;
+			++ ans;
+		}
+		return;
+	}
+	for(int i = st[p - 1] + 1 ; i <= n * n ; ++ i) {
+		st[p] = i;
+		int x = (i - 1) / n + 1;
+		int y = (i - 1) % n + 1;
+		nr1 = nr1 * 100 + x * 10 + y;
+		nr2 = nr2 * 100 + x * 10 + n - y + 1; 
+		back(p + 1);
+		nr1 /= 100;
+		nr2 /= 100;
+	}
+}
+
+int main() {
+	fin >> n >> k;
+	back(1);
+	cerr << ans << '\n';
+	
+}
