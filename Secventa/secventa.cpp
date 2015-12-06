@@ -1,23 +1,60 @@
-#include<fstream>
-using namespace std;
-ifstream cin("secventa.in");
-ofstream cout("secventa.out");
+#include <iostream>
+#include <fstream>
+#include <deque>
 
-int main()
-{
-    int a[500005],i;
-    long long n, k;
-    cin>>n>>k;
-    for( i=1;i<=n;i++)
-       cin>>a[i];
-    int maxim, inceput;
-    maxim=a[1];
-    for(i=1;i<=(n-k)+1;i++)
-       if(a[i]>maxim)
-          { maxim=a[i];
-            inceput=i;
-            }
-    cout<<inceput<<" "<<(inceput+k-1)<<" "<<maxim<<"\n";    
-    
-    return 0;
+using namespace std;
+
+const int maxn = 500005;
+const int oo = 0x3f3f3f3f;
+
+int a[maxn], n, k, _st, _end;
+
+const int lim = (1 << 20);
+char buff[lim];
+int pos;
+
+inline void getint(int &x) {
+	x = 0;
+	char sgn = '+';
+	while(!isdigit(buff[pos])) {
+		sgn = buff[pos];
+		if(++pos == lim) {
+			pos = 0;
+			fread(buff, 1, lim, stdin);
+		}
+	}
+	while(isdigit(buff[pos])) {
+		x = x * 10 + buff[pos] - '0';
+		if(++ pos == lim) {
+			pos = 0;
+			fread(buff, 1, lim, stdin);
+		}
+	}
+	if(sgn == '-')
+		x = -x;
+}
+
+int main() {
+	freopen("secventa.in", "r", stdin);
+	ofstream fout("secventa.out");
+	getint(n);
+	getint(k);
+	int _bestmax = -oo;
+	deque <int> dq;
+	for(int i = 1 ; i <= n ; ++ i) {
+		getint(a[i]);
+		while(!dq.empty() && a[dq.back()] >= a[i])
+			dq.pop_back();
+		dq.push_back(i);
+		if(dq.front() <= i - k)
+			dq.pop_front();
+		if(i >= k) {
+			if(_bestmax < a[dq.front()]) {
+				_bestmax = a[dq.front()];
+				_st = dq.front();
+				_end = i;
+			}
+		}
+	}
+	fout << _end - k + 1 << ' ' << _end << ' ' << _bestmax << "\n";
 }

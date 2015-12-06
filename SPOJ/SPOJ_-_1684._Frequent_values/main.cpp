@@ -40,7 +40,7 @@ struct Node {
         lfreq = value;
         rfreq = value;
     }
-    void Update(int st, int dr, int mid, node Left, node Right) {
+    void Update(int st, int dr, int mid, Node Left, Node Right) {
         if(a[mid] == a[mid + 1]) {
             lfreq = Left.lfreq + arb[2*Node+1].lfreq * (a[st] == a[mid]);
             rfreq = arb[2*Node + 1].rfreq + Left.rfreq * (a[mid + 1] == a[dr]);

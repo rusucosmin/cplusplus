@@ -3,31 +3,26 @@
 
 using namespace std;
 
-const int maxn = 6000005;
-
-int n, actsum, st, dr, ind;
-int ansst, ansdr, bestsum = -0x3f3f3f3f, sum;
+const int oo = 0x3f3f3f3f;
 
 int main() {
 	ifstream fin("ssm.in");
 	ofstream fout("ssm.out");
-
+	int n, x, bestsum = -oo, sum = -oo, start, beg, end;
 	fin >> n;
-	sum = -0x3f3f3f3f;
 	for(int i = 1 ; i <= n ; ++ i) {
-		int x;
 		fin >> x;
-		if(sum < 0) {
-			sum = x;
-			st = i;
-		}
-		else
+		if(sum >= 0)
 			sum += x;
-		if(bestsum < sum) {
-			bestsum = sum;
-			ansst = st;
-			ansdr = i;
+		else {
+			sum = x;
+			start = i;
+		}
+		if(sum > bestsum) {
+			bestsum = sum;	
+			beg = start;
+			end = i;
 		}
 	}
-	fout << bestsum << ' ' << ansst << ' ' << ansdr << '\n';
+	fout << bestsum << ' ' << beg << ' ' << end << '\n';
 }

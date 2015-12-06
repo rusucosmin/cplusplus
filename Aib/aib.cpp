@@ -11,33 +11,16 @@ inline int lsb(int x) {
 	return x & (-x);
 }
 
-inline void update(int node, int value) {
-	for(int i = node ; i <= n ; i += lsb(i))
+inline void update(int pos, int value) {
+	for(int i = pos ; i <= n ; i += lsb(i))
 		aib[i] += value;
 }
 
-inline int query(int node) {
+inline int query(int pos) {
 	int sum = 0;
-	for(int i = node ; i > 0 ; i -= lsb(i))
+	for(int i = pos ; i > 0 ; i -= lsb(i))
 		sum += aib[i];
 	return sum;
-}
-
-inline int binarysearch(int x) {
-	int st = 1, dr = n, ans = -1;
-	while(st <= dr) {
-		int mid = ((st + dr) >> 1);
-		int q = query(mid);
-		if(q == x) {
-			ans = mid;
-			dr = mid - 1;
-		}
-		if(q > x)
-			dr = mid - 1;
-		else
-			st = mid + 1;
-	}
-	return ans;
 }
 
 int main() {
@@ -51,23 +34,32 @@ int main() {
 		update(i, x);
 	}
 	for(int i = 1 ; i <= m ; ++ i) {
-		int op;
-		fin >> op;	
-		++ op;
-		if(op == 1) {
-			int x, y;
-			fin >> x >> y;
+		int op, x, y;
+		fin >> op >> x;
+		if(op == 0) {
+			fin >> y;
 			update(x, y);
 		}
-		if(op == 2) {
-			int x, y;
-			fin >> x >> y;
-			fout << query(y) - query(x - 1) << '\n';
+		if(op == 1) {
+			fin >> y;
+			fout << query(y) - query(x - 1) << '\n';	
 		}
-		if(op == 3) {
-			int x;
-			fin >> x;
-			fout << binarysearch(x) << '\n';
+		if(op == 2) {
+			int st = 1, dr = n, ans = -1;
+			while(st <= dr) {
+				int mid = ((st + dr) >> 1);
+				int aux = query(mid);
+				if(aux == x) {
+					ans = mid;
+					dr = mid - 1;
+					continue;
+				}
+				if(aux < x)
+					st = mid + 1;
+				else
+					dr = mid - 1;
+			}
+			fout << ans << '\n';
 		}
 	}
 }

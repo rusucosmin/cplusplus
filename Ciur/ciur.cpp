@@ -1,25 +1,27 @@
 #include <fstream>
+#include <vector>
 #include <bitset>
 
 using namespace std;
 
 const int maxn = 2000005;
 
-bitset <maxn> ciur;
-int n;
+int n, cnt;
+bitset <maxn> used;
 
 int main() {
 	ifstream fin("ciur.in");
 	ofstream fout("ciur.out");
-
 	fin >> n;
-	int ans = 0;
+
 	for(int i = 2 ; i <= n ; ++ i) {
-		if(!ciur[i]) {
-			++ ans;
-			for(int j = i + i ; j <= n ; j += i)
-				ciur[j] = 1;
+		if(used[i])
+			continue;
+		++ cnt;
+		for(int j = i + i ; j <= n ; j += i) {
+			used[j] = 1;	
+
 		}
 	}
-	fout << ans << '\n';
+	fout << cnt << '\n';
 }

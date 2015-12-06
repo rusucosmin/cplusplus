@@ -1,39 +1,45 @@
 #include <fstream>
 #include <queue>
 #include <string.h>
+#include <vector>
 
 using namespace std;
+
+ifstream fin("dijkstra.in");
+ofstream fout("dijkstra.out");
 
 const int maxn = 50005;
 const int oo = 0x3f3f3f3f;
 
-int n, m, dp[maxn];
+int n, m, dist[maxn];
 vector <pair<int, int> > g[maxn];
 
-inline void dijkstra(int st) {
-	priority_queue<pair<int, int> , vector <pair<int, int> >, greater<pair<int, int> > > q;
-	memset(dp, oo, sizeof(dp));
-	dp[st] = 0;
-	q.push(make_pair(0, st));
+inline void dijkstra(int stnode) {
+	priority_queue <pair<int, int> > q;
+	memset(dist, oo, sizeof(dist));
+	dist[stnode] = 0;
+	q.push(make_pair(0, stnode));
 	while(!q.empty()) {
+		int cost = -q.top().first;
 		int node = q.top().second;
-		int cost = q.top().first;
 		q.pop();
-		if(dp[node] < cost)
+		if(dist[node] != cost)
 			continue;
-		for(vector <pair<int, int> > :: iterator it = g[node].begin() ; it != g[node].end() ; ++ it) {
-			if(dp[it->first] > dp[node] + it->second) {
-				dp[it->first] = dp[node] + it->second;
-				q.push(make_pair(dp[it->first], it->first));
+		for(auto it : g[node]) {
+			if(dist[it.first] > cost + it.second) {
+				dist[it.first] = cost + it.second;
+				q.push(make_pair(-dist[it.first], it.first));
 			}
 		}
+	}
+	for(int i = 2 ; i <= n ; ++ i) {
+		if(dist[i] == oo)
+			dist[i] = 0;
+		fout << dist[i] << ' ';
 	}
 }
 
 int main() {
-	ifstream fin("dijkstra.in");
-	ofstream fout("dijkstra.out");
-
 	fin >> n >> m;
 	for(int i = 1 ; i <= m ; ++ i) {
 		int x, y, z;
@@ -41,9 +47,5 @@ int main() {
 		g[x].push_back(make_pair(y, z));
 	}
 	dijkstra(1);
-	for(int i = 2 ; i <= n ; ++ i)
-		if(dp[i] == 0x3f3f3f3f)
-			fout << 0 << ' ';
-		else
-			fout << dp[i] << ' ';
+	
 }

@@ -11,13 +11,17 @@ int N, S, D[max_N][max_S], i, j, k;
 
 int main()
 {
+	for(int i = 1 ; i <= n ; ++ i) {
+		int x, y;
+		fin >> x >> y;
+	}
 	fin >> N >> S;
 	D[0][0] = 1;
 	for(i = 1; i <= N - 1; i ++)
 	{
 		for(j = 0; j <= N*(N-1)/2; j ++)
 			D[1][j] = D[0][j + (i - 1)] + D[0][j - (i - 1)];
-		
+
 		for(k = 0; k <= N*(N-1)/2 ; k ++)
 		{
 			D[0][k] = D[1][k];

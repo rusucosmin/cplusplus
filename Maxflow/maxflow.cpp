@@ -1,72 +1,70 @@
-#include <fstream>
 #include <iostream>
 #include <vector>
+#include <fstream>
 #include <bitset>
 #include <queue>
 
 using namespace std;
 
+ifstream fin("maxflow.in");
+ofstream fout("maxflow.out");
+
 const int maxn = 1005;
+const int oo = 0x3f3f3f3f;
 
-int n, m, c[maxn][maxn], father[maxn];
+int n, m, cap[maxn][maxn], father[maxn];
 vector <int> g[maxn];
-
-queue <int> q;
 bitset <maxn> used;
+queue <int> q;
 
-inline bool bfs(int s, int d) {
+inline bool bfs(int source, int sink) {
 	used.reset();
-	q.push(s);
-	used[s] = 1;
+	q.push(source);
+	used[source] = 1;
 	while(!q.empty()) {
 		int node = q.front();
 		q.pop();
-		if(node == d)
+		if(node == sink)
 			continue;
-		for(vector <int> :: iterator it = g[node].begin() ; it != g[node].end() ; ++ it) {
-			if(!used[*it] && c[node][*it] > 0) {
-				used[*it] = 1;
-				father[*it] = node;
-				q.push(*it);
+		for(auto it : g[node])
+			if(!used[it] && cap[node][it] > 0) {
+				used[it] = 1;
+				father[it] = node;
+				q.push(it);
 			}
-		}
 	}
-	return used[d];
+	return used[sink];
 }
 
-inline int getmaxflow(int s, int d) {
+inline int getmaxflow(int source, int sink) {
 	int maxflow = 0;
-	while(bfs(s, d)) {
-		for(vector <int> :: iterator it = g[d].begin(); it != g[d].end() ; ++ it) {
-			if(c[*it][d] <= 0 || !used[*it])
+	while(bfs(source, sink))
+		for(auto it : g[sink]) {
+			if(!used[it] || cap[it][sink] <= 0)
 				continue;
-			father[d] = *it;
-			int bottleneck = 0x3f3f3f3f;
-			for(int i = d ; i != s ; i = father[i])
-				bottleneck = min(bottleneck, c[father[i]][i]);
+			father[sink] = it;
+			int bottleneck = oo;
+			for(int i = sink ; i != source ; i = father[i])
+				bottleneck = min(bottleneck, cap[father[i]][i]);
 			if(!bottleneck)
 				continue;
-			maxflow += bottleneck;
-			for(int i = d ; i != s ; i = father[i]) {
-				c[father[i]][i] -= bottleneck;
-				c[i][father[i]] += bottleneck;
+			for(int i = sink ; i != source ; i = father[i]) {
+				cap[father[i]][i] -= bottleneck;
+				cap[i][father[i]] += bottleneck;
 			}
+			maxflow += bottleneck;
 		}
-	}
 	return maxflow;
 }
 
 int main() {
-	ifstream fin("maxflow.in");
-	ofstream fout("maxflow.out");
-
 	fin >> n >> m;
 	for(int i = 1 ; i <= m ; ++ i) {
-		int x, y, z;
-		fin >> x >> y >> z;
+		int x, y, c;
+		fin >> x >> y >> c;
+		cap[x][y] += c;
 		g[x].push_back(y);
 		g[y].push_back(x);
-		c[x][y] = z;
 	}
 	fout << getmaxflow(1, n) << '\n';
 }

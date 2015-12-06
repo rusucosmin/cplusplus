@@ -1,12 +1,11 @@
-#include <iostream>
-#include <vector>
 #include <fstream>
 
 using namespace std;
 
-const int maxn = 100005;
+const int maxn = 100005; 
+const int oo = 0x3f3f3f3f;
 
-int arb[maxn << 2], a[maxn], n, m;
+int n, m, a[maxn], arb[maxn << 2];
 
 inline void build(int node, int st, int dr) {
 	if(st == dr) {
@@ -36,7 +35,7 @@ inline int query(int node, int st, int dr, int a, int b) {
 	if(a <= st && dr <= b)
 		return arb[node];
 	int mid = ((st + dr) >> 1);
-	int ret = -0x3f3f3f3f;
+	int ret = -oo;
 	if(a <= mid)
 		ret = max(ret, query(node << 1, st, mid, a, b));
 	if(mid < b)
@@ -47,18 +46,16 @@ inline int query(int node, int st, int dr, int a, int b) {
 int main() {
 	ifstream fin("arbint.in");
 	ofstream fout("arbint.out");
-
 	fin >> n >> m;
 	for(int i = 1 ; i <= n ; ++ i)
 		fin >> a[i];
 	build(1, 1, n);
 	for(int i = 1 ; i <= m ; ++ i) {
-		int type, x, y;
-		fin >> type >> x >> y;
-		if(type == 0)
+		int op, x, y;
+		fin >> op >> x >> y;
+		if(op == 0)
 			fout << query(1, 1, n, x, y) << '\n';
 		else
 			update(1, 1, n, x, y);
 	}
 }
-

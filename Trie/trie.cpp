@@ -1,5 +1,4 @@
 #include <iostream>
-#include <vector>
 #include <fstream>
 #include <string.h>
 
@@ -7,52 +6,64 @@ using namespace std;
 
 const int sigma = 26;
 
+int op;
+char s[25];
+
 struct trie {
 	trie *sons[sigma];
-	int cnt;
-	int end;
-	trie() {
+	int cnt, sonscnt;
+	trie () {
 		cnt = 0;
 		memset(sons, 0, sizeof(sons));
+		sonscnt = 0;
 	}
-} *root;
+} *root = new trie();
 
-inline void insert(trie *node, char *s) {
+inline void insert(trie *&node, char *s) {
 	if(!*s) {
 		++ node->cnt;
-		++ node->end;
 		return ;
 	}
-	++ node->cnt;
 	int son = *s - 'a';
-	if(!node->sons[son])
+	if(!node->sons[son]) {
+		++ node->sonscnt;
 		node->sons[son] = new trie();
+	}
 	insert(node->sons[son], s + 1);
 }
 
-inline void remove(trie *&node, char *s) {
+inline bool erase(trie *&node, char *s) {
 	if(!*s) {
-		-- node->end;			
 		-- node->cnt;
-		return ;
+		if(!node->cnt && !node->sonscnt) {
+			delete node;
+			node = NULL; 
+			return 1;
+		}
+		return 0;
 	}
 	int son = *s - 'a';
-	-- node->cnt;
-	remove(node->sons[son], s + 1);
-	if(!node->sons[son]->cnt)
-		node->sons[son] = NULL;
+	if(erase(node->sons[son], s + 1)) {
+		-- node->sonscnt;
+		if(!node->sonscnt && !node->cnt) {
+			delete node;
+			node = NULL;
+			return 1;
+		}
+	}
+	return 0;
 }
 
-inline int find(trie *node, char *s) {
+inline int find(trie *&node, char *s) {
 	if(!*s)
-		return node->end;
+		return node->cnt;
 	int son = *s - 'a';
 	if(!node->sons[son])
 		return 0;
 	return find(node->sons[son], s + 1);
 }
 
-inline int prefix(trie *node, char *s) {
+inline int prefix(trie *&node, char *s) {
 	if(!*s)
 		return 0;
 	int son = *s - 'a';
@@ -61,21 +72,19 @@ inline int prefix(trie *node, char *s) {
 	return 1 + prefix(node->sons[son], s + 1);
 }
 
-char s[25];
-
 int main() {
 	ifstream fin("trie.in");
 	ofstream fout("trie.out");
-	root = new trie();
-	int op;
-	while(fin >> op >> s + 1) {
+	
+	while(fin >> op >> s) {
 		if(op == 0)
-			insert(root, s + 1);
+			insert(root, s);
 		if(op == 1)
-			remove(root, s + 1);
+			if(erase(root, s))
+				root = new trie();
 		if(op == 2)
-			fout << find(root, s + 1) << '\n';
+			fout << find(root, s) << '\n';
 		if(op == 3)
-			fout << prefix(root, s + 1) << '\n';
+			fout << prefix(root, s) << '\n';
 	}
 }

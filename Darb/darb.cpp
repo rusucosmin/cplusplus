@@ -1,21 +1,23 @@
-#include <fstream>
 #include <iostream>
+#include <fstream>
 #include <vector>
 
 using namespace std;
 
 const int maxn = 100005;
 
-int dp[maxn], n;
 vector <int> g[maxn];
+int n, dist[maxn], deepest;
 
-inline void dfs(int node, int father, int &deepest) {
-	dp[node] = dp[father] + 1;
-	if(dp[deepest] < dp[node])
+inline void dfs(int node, int father) {
+	dist[node] = dist[father] + 1;
+	if(dist[deepest] < dist[node])	
 		deepest = node;
-	for(vector <int> :: iterator it = g[node].begin() ; it != g[node].end() ; ++ it)
-		if(*it != father)
-			dfs(*it, node, deepest);
+	for(auto it : g[node]) {
+		if(it == father)
+			continue;
+		dfs(it, node);
+	}
 }
 
 int main() {
@@ -28,8 +30,8 @@ int main() {
 		g[x].push_back(y);
 		g[y].push_back(x);
 	}
-	int deepest = 1;
-	dfs(1, 0, deepest);
-	dfs(deepest, 0, deepest);
-	fout << dp[deepest] << '\n';
+	deepest = 1;
+	dfs(1, 0);
+	dfs(deepest, 0);
+	fout << dist[deepest] << '\n';
 }

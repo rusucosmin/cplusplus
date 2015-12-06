@@ -1,8 +1,8 @@
-#include <fstream>
 #include <iostream>
-#include <queue>
-#include <bitset>
 #include <vector>
+#include <bitset>
+#include <fstream>
+#include <queue>
 #include <string.h>
 
 using namespace std;
@@ -10,52 +10,45 @@ using namespace std;
 const int maxn = 50005;
 const int oo = 0x3f3f3f3f;
 
-int n, m, dp[maxn], inqs[maxn];
-bitset <maxn> inq;
+int dist[maxn], n, m, inqs[maxn];
 vector <pair<int, int> > g[maxn];
+bitset <maxn> inq;
 
-inline bool bellmanford() {
+inline void bellmanford(ofstream &fout) {
+	memset(dist, oo, sizeof(dist));
 	queue <int> q;
 	q.push(1);
-	memset(dp, oo, sizeof(dp));
-	dp[1] = 0;
 	inq[1] = 1;
+	dist[1] = 0;
 	while(!q.empty()) {
 		int node = q.front();
-		inq[node] = false;
 		q.pop();
-		for(vector <pair<int, int> > :: iterator it = g[node].begin() ; it != g[node].end() ; ++ it) {
-			if(dp[it->first] > dp[node] + it->second) {
-				dp[it->first] = dp[node] + it->second;
-				if(inq[it->first])
+		inq[node] = 0;
+		for(auto it : g[node])
+			if(dist[it.first] > dist[node] + it.second) {
+				dist[it.first] = dist[node] + it.second;
+				if(inq[it.first])
 					continue;
-				inq[it->first] = 1;
-				++ inqs[it->first];
-				if(inqs[it->first] > n)
-					return true;
-				q.push(it->first);
+				if(++ inqs[it.first] > n) {
+					fout << "Ciclu negativ!\n";
+					return;
+				}
+				inq[it.first] = 1;
+				q.push(it.first);
 			}
-		}
 	}
-	return false;
+	for(int i = 2 ; i <= n ; ++ i)
+		fout << dist[i] << ' ';
 }
 
 int main() {
 	ifstream fin("bellmanford.in");
 	ofstream fout("bellmanford.out");
-	
 	fin >> n >> m;
 	for(int i = 1 ; i <= m ; ++ i) {
 		int x, y, z;
 		fin >> x >> y >> z;
 		g[x].push_back(make_pair(y, z));
 	}
-	if(bellmanford()) {
-		fout << "Ciclu negativ!\n";
-		return 0;
-	}
-	else {
-		for(int i = 2 ; i <= n ; ++ i)
-			fout << dp[i] << ' ';
-	}
+	bellmanford(fout);
 }

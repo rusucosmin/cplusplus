@@ -1,0 +1,18 @@
+# depslib dependency file v1.0
+1415036138 source:/home/cosmin/cplusplus/Aria/main.cpp
+	<fstream>
+	<iostream>
+	<vector>
+	<bitset>
+	<string.h>
+	<algorithm>
+	<iomanip>
+	<math.h>
+	<time.h>
+	<stdlib.h>
+	<set>
+	<map>
+	<string>
+	<queue>
+	<deque>
+

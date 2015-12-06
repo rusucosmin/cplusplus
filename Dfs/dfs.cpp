@@ -7,21 +7,21 @@ using namespace std;
 
 const int maxn = 100005;
 
-int n, m, comp;
 vector <int> g[maxn];
 bitset <maxn> used;
+int n, m, cnt;
+
+ifstream fin("dfs.in");
+ofstream fout("dfs.out");
 
 inline void dfs(int node) {
 	used[node] = 1;
-	for(vector <int> :: iterator it = g[node].begin() ; it != g[node].end() ; ++ it)
-		if(!used[*it])
-			dfs(*it);
+	for(auto it : g[node])
+		if(!used[it])
+			dfs(it);
 }
 
 int main() {
-	ifstream fin("dfs.in");
-	ofstream fout("dfs.out");
-
 	fin >> n >> m;
 	for(int i = 1 ; i <= m ; ++ i) {
 		int x, y;
@@ -31,8 +31,8 @@ int main() {
 	}
 	for(int i = 1 ; i <= n ; ++ i)
 		if(!used[i]) {
-			++ comp;
+			++ cnt;
 			dfs(i);
 		}
-	fout << comp << '\n';
+	fout << cnt << '\n';
 }

@@ -1,58 +1,51 @@
-#include <fstream>
 #include <iostream>
-#include <stack>
 #include <vector>
+#include <fstream>
 #include <set>
-#include <bitset>
+#include <stack>
 
 using namespace std;
 
 const int maxn = 100005;
 
+int n, m, dflevel[maxn], lowlink[maxn];
 vector <int> g[maxn];
-int n, m, level[maxn], df[maxn];
-stack <pair<int, int> > st;
 vector <set<int> > bcc;
-bitset <maxn> used;
+stack <pair<int, int> > st;
 
 inline void extractbcc(int x, int y) {
-	set<int> act;	
 	int tx, ty;
+	set <int> act;
 	do {
 		tx = st.top().first;
 		ty = st.top().second;
+		st.pop();
 		act.insert(tx);
 		act.insert(ty);
-		st.pop();
-	}while(x != tx || y != ty);
+	}while(tx != x || ty != y);
 	bcc.push_back(act);
 }
 
 inline void dfs(int node, int father) {
-	level[node] = level[father] + 1;
-	df[node] = level[node];
-	used[node] = 1;
-	for(vector <int> :: iterator it = g[node].begin() ; it != g[node].end() ; ++ it) {
-		if(*it == father)
+	dflevel[node] = lowlink[node] = dflevel[father] + 1;
+	for(auto it : g[node]) {
+		if(it == father)
 			continue;
-		if(!used[*it]) {
-			st.push(make_pair(node, *it));
-			dfs(*it, node);
-			df[node] = min(df[node], df[*it]);
-			if(df[*it] >= level[node]) {
-				extractbcc(node, *it);
-			}
+		if(!dflevel[it]) {
+			st.push(make_pair(node, it));
+			dfs(it, node);
+			lowlink[node] = min(lowlink[node], lowlink[it]);
+			if(lowlink[it] >= dflevel[node])
+				extractbcc(node, it);
 		}
 		else
-			df[node] = min(df[node], level[*it]);
-
+			lowlink[node] = min(lowlink[node], dflevel[it]);
 	}
 }
 
 int main() {
 	ifstream fin("biconex.in");
 	ofstream fout("biconex.out");
-
 	fin >> n >> m;
 	for(int i = 1 ; i <= m ; ++ i) {
 		int x, y;
@@ -60,12 +53,11 @@ int main() {
 		g[x].push_back(y);
 		g[y].push_back(x);
 	}
-	for(int i = 1 ; i <= n ; ++ i)
-		if(!used[i])
-			dfs(i, 0);
-	
+	dfs(1, 0);
 	fout << bcc.size() << '\n';
-	for(vector <set<int> > :: iterator comp = bcc.begin() ; comp != bcc.end() ; ++ comp, fout << '\n')
-		for(set<int> :: iterator it = comp->begin() ; it != comp->end() ; ++ it)
-			fout << *it << ' ';
+	for(auto comp : bcc) {
+		for(auto it : comp)
+			fout << it << ' ';
+		fout << '\n';
+	}
 }

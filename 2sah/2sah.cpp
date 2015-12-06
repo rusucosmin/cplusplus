@@ -7,8 +7,8 @@ using namespace std;
 
 const int mod = 100003;
 
-ifstream fin("p2sah.in");
-ofstream fout("p2sah.out");
+ifstream fin("2sah.in");
+ofstream fout("2sah.out");
 
 int sum[1005][2005];
 
@@ -24,7 +24,7 @@ inline int lgpow(int a, int b) {
 
 inline int brute(int n, int k) {
 	memset(sum, 0, sizeof(sum));
-	sum[1][n + 1] = 1;	
+	sum[1][n + 1] = 1;
 	for(int i = 2 ; i <= n + 1 ; ++ i)
 		for(int j = 1 ; j <= 2*n + 1 ; ++ j)
 			sum[i][j] = (sum[i - 1][j - 1] + sum[i - 1][j] + sum[i - 1][j + 1]) % mod;
@@ -54,7 +54,7 @@ inline void lgmultiply(int p) {
 	int ans[3][3] = {
 		{1, 0, 0},
 		{0, 1, 0},
-		{0, 0, 1} 
+		{0, 0, 1}
 	};
 	int aux[3][3];
 	for( ; p ; p >>= 1) {

@@ -1,0 +1,200 @@
+Case 1: The longest path from 1 has length 6, finishing at 17.
+
+Case 2: The longest path from 1 has length 4, finishing at 6.
+
+Case 3: The longest path from 1 has length 4, finishing at 7.
+
+Case 4: The longest path from 1 has length 11, finishing at 19.
+
+Case 5: The longest path from 1 has length 5, finishing at 8.
+
+Case 6: The longest path from 1 has length 2, finishing at 4.
+
+Case 7: The longest path from 1 has length 9, finishing at 17.
+
+Case 8: The longest path from 1 has length 10, finishing at 17.
+
+Case 9: The longest path from 1 has length 4, finishing at 11.
+
+Case 10: The longest path from 1 has length 7, finishing at 12.
+
+Case 11: The longest path from 1 has length 3, finishing at 7.
+
+Case 12: The longest path from 1 has length 9, finishing at 19.
+
+Case 13: The longest path from 1 has length 6, finishing at 14.
+
+Case 14: The longest path from 1 has length 11, finishing at 19.
+
+Case 15: The longest path from 1 has length 11, finishing at 17.
+
+Case 16: The longest path from 1 has length 3, finishing at 5.
+
+Case 17: The longest path from 1 has length 0, finishing at 1.
+
+Case 18: The longest path from 1 has length 2, finishing at 5.
+
+Case 19: The longest path from 1 has length 1, finishing at 2.
+
+Case 20: The longest path from 1 has length 6, finishing at 11.
+
+Case 21: The longest path from 1 has length 10, finishing at 18.
+
+Case 22: The longest path from 1 has length 3, finishing at 5.
+
+Case 23: The longest path from 1 has length 6, finishing at 15.
+
+Case 24: The longest path from 1 has length 8, finishing at 11.
+
+Case 25: The longest path from 1 has length 2, finishing at 4.
+
+Case 26: The longest path from 1 has length 7, finishing at 11.
+
+Case 27: The longest path from 1 has length 11, finishing at 20.
+
+Case 28: The longest path from 1 has length 9, finishing at 15.
+
+Case 29: The longest path from 1 has length 9, finishing at 18.
+
+Case 30: The longest path from 1 has length 2, finishing at 4.
+
+Case 31: The longest path from 1 has length 8, finishing at 20.
+
+Case 32: The longest path from 1 has length 8, finishing at 18.
+
+Case 33: The longest path from 1 has length 4, finishing at 7.
+
+Case 34: The longest path from 1 has length 4, finishing at 8.
+
+Case 35: The longest path from 1 has length 3, finishing at 5.
+
+Case 36: The longest path from 1 has length 6, finishing at 9.
+
+Case 37: The longest path from 1 has length 4, finishing at 9.
+
+Case 38: The longest path from 1 has length 2, finishing at 3.
+
+Case 39: The longest path from 1 has length 5, finishing at 6.
+
+Case 40: The longest path from 1 has length 12, finishing at 18.
+
+Case 41: The longest path from 1 has length 11, finishing at 14.
+
+Case 42: The longest path from 1 has length 9, finishing at 16.
+
+Case 43: The longest path from 1 has length 4, finishing at 7.
+
+Case 44: The longest path from 1 has length 0, finishing at 1.
+
+Case 45: The longest path from 1 has length 4, finishing at 10.
+
+Case 46: The longest path from 1 has length 4, finishing at 5.
+
+Case 47: The longest path from 1 has length 2, finishing at 5.
+
+Case 48: The longest path from 1 has length 4, finishing at 11.
+
+Case 49: The longest path from 1 has length 7, finishing at 14.
+
+Case 50: The longest path from 1 has length 4, finishing at 5.
+
+Case 51: The longest path from 1 has length 2, finishing at 3.
+
+Case 52: The longest path from 1 has length 10, finishing at 16.
+
+Case 53: The longest path from 1 has length 10, finishing at 17.
+
+Case 54: The longest path from 1 has length 3, finishing at 4.
+
+Case 55: The longest path from 1 has length 5, finishing at 10.
+
+Case 56: The longest path from 1 has length 1, finishing at 2.
+
+Case 57: The longest path from 1 has length 4, finishing at 10.
+
+Case 58: The longest path from 1 has length 8, finishing at 18.
+
+Case 59: The longest path from 1 has length 11, finishing at 19.
+
+Case 60: The longest path from 1 has length 4, finishing at 10.
+
+Case 61: The longest path from 1 has length 5, finishing at 14.
+
+Case 62: The longest path from 1 has length 9, finishing at 15.
+
+Case 63: The longest path from 1 has length 7, finishing at 9.
+
+Case 64: The longest path from 1 has length 0, finishing at 1.
+
+Case 65: The longest path from 1 has length 3, finishing at 10.
+
+Case 66: The longest path from 1 has length 3, finishing at 5.
+
+Case 67: The longest path from 1 has length 6, finishing at 13.
+
+Case 68: The longest path from 1 has length 6, finishing at 13.
+
+Case 69: The longest path from 1 has length 3, finishing at 10.
+
+Case 70: The longest path from 1 has length 3, finishing at 12.
+
+Case 71: The longest path from 1 has length 7, finishing at 11.
+
+Case 72: The longest path from 1 has length 5, finishing at 8.
+
+Case 73: The longest path from 1 has length 0, finishing at 1.
+
+Case 74: The longest path from 1 has length 8, finishing at 15.
+
+Case 75: The longest path from 1 has length 8, finishing at 20.
+
+Case 76: The longest path from 1 has length 3, finishing at 4.
+
+Case 77: The longest path from 1 has length 9, finishing at 15.
+
+Case 78: The longest path from 1 has length 8, finishing at 14.
+
+Case 79: The longest path from 1 has length 1, finishing at 2.
+
+Case 80: The longest path from 1 has length 4, finishing at 8.
+
+Case 81: The longest path from 1 has length 11, finishing at 20.
+
+Case 82: The longest path from 1 has length 3, finishing at 6.
+
+Case 83: The longest path from 1 has length 4, finishing at 6.
+
+Case 84: The longest path from 1 has length 13, finishing at 20.
+
+Case 85: The longest path from 1 has length 3, finishing at 4.
+
+Case 86: The longest path from 1 has length 6, finishing at 12.
+
+Case 87: The longest path from 1 has length 5, finishing at 9.
+
+Case 88: The longest path from 1 has length 7, finishing at 9.
+
+Case 89: The longest path from 1 has length 6, finishing at 11.
+
+Case 90: The longest path from 1 has length 6, finishing at 11.
+
+Case 91: The longest path from 1 has length 4, finishing at 6.
+
+Case 92: The longest path from 1 has length 0, finishing at 1.
+
+Case 93: The longest path from 1 has length 0, finishing at 1.
+
+Case 94: The longest path from 1 has length 5, finishing at 9.
+
+Case 95: The longest path from 1 has length 4, finishing at 8.
+
+Case 96: The longest path from 1 has length 3, finishing at 8.
+
+Case 97: The longest path from 1 has length 4, finishing at 12.
+
+Case 98: The longest path from 1 has length 11, finishing at 17.
+
+Case 99: The longest path from 1 has length 2, finishing at 3.
+
+Case 100: The longest path from 1 has length 3, finishing at 5.
+
